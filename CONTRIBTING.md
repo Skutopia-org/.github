@@ -1,1 +1,1 @@
-Changes are to following the [SKUTOPIA coding conventions](https://skutopia.atlassian.net/wiki/spaces/SKUT/pages/898007075/Code+Best+Practices)
+Changes are to follow the [SKUTOPIA coding conventions](https://skutopia.atlassian.net/wiki/spaces/SKUT/pages/898007075/Code+Best+Practices)
