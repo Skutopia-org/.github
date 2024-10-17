@@ -4,7 +4,7 @@
 
 ## Solution
 * How does this PR address the problem?
-* Were there any alternative solutions considered?
+* Were any alternative solutions considered?
 
 ## Results
 * What are the expected outcomes of this change?
