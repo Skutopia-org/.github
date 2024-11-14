@@ -18,5 +18,5 @@ jobs:
         URI="https://api.github.com"
         API_HEADER="Accept: application/vnd.github.v3+json"
         AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
-        PRS=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged")
+        PRS=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/.github+is:pr+is:merged")
         echo "$PRS" | jq
