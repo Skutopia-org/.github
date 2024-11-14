@@ -1,0 +1,22 @@
+name: 'Weekly change log'
+
+on:
+  push:
+
+jobs:
+  getPrs:
+    name: Get PRs
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: 'Setup jq'
+      uses: dcarbone/install-jq-action@v2
+      
+    - name: Apply blocked label on open prs
+      if: ${{ github.event.inputs.blockPrs == 'block' }}
+      run: |
+        URI="https://api.github.com"
+        API_HEADER="Accept: application/vnd.github.v3+json"
+        AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+        PRS=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged")
