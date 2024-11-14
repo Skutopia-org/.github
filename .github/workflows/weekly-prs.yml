@@ -13,8 +13,7 @@ jobs:
     - name: 'Setup jq'
       uses: dcarbone/install-jq-action@v2
       
-    - name: Apply blocked label on open prs
-      if: ${{ github.event.inputs.blockPrs == 'block' }}
+    - name: Get PRs
       run: |
         URI="https://api.github.com"
         API_HEADER="Accept: application/vnd.github.v3+json"
