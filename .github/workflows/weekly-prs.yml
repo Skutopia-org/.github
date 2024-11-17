@@ -42,7 +42,7 @@ jobs:
         SKUTILITIES_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutilities+is:pr+is:merged+closed:>$date")
         echo $SKUTILITIES_PRS_RESPONSE
         if [[ $SKUTILITIES_PRS_RESPONSE == '"total_count": 0' ]]; then
-          SKUTILITIES_PRS=' '
+          SKUTILITIES_PRS='No'
         else  
           SKUTILITIES_PRS=$(echo "$SKUTILITIES_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         fi
