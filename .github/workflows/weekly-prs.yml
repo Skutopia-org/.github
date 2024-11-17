@@ -38,4 +38,12 @@ jobs:
         echo $ECOMM_PRS | jq -r
         echo $BILLING_PRS | jq -r
 
+    - name: Send message to Slack API
+      uses: archive/github-actions-slack@v2.0.0
+      id: notify
+      with:
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
+        slack-channel: C081KF83BQ9
+        slack-text: Hello! Event "${{ github.event_name }}" in "${{ github.repository }}" 🤓
+
         
