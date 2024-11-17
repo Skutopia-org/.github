@@ -38,13 +38,13 @@ jobs:
         # BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
 
-        MISC_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/shared-infrastructure+is:pr+is:merged+closed:>$date" "${URI}/search/issues?q=repo:Skutopia-org/skutilities+is:pr+is:merged+closed:>$date")
+        MISC_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutilities+is:pr+is:merged+closed:>$date" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
         MISC_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         echo $MISC_PRS
         
         jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" --arg WARETOPIA_PRS "$WARETOPIA_PRS" --arg BILLING_PRS "$BILLING_PRS" --arg ECOMM_PRS "$ECOMM_PRS" '{blocks: [{type: "header",text:{type: "plain_text",text: ":rockets_fire: What we have deployed in the last week! :rockets_fire:"}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":skutopia-logo_icon-gradient: *Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":package: *Fulfilment Centre*"}},{type: "section",text:{type: "mrkdwn",text: $WARETOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":moneybag: *Billing Domain*"}},{type: "section",text:{type: "mrkdwn",text: $BILLING_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":ecommerce: *Ecommerce Domain* "}},{type: "section",text:{type: "mrkdwn",text: $ECOMM_PRS}},{"type": "divider"}]}' > post.json
 
-        cat post.json
+        # cat post.json
 
         # curl -X POST -H 'Content-type: application/json' --data @post.json https://hooks.slack.com/services/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
 
