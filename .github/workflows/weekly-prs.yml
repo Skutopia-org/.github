@@ -41,7 +41,7 @@ jobs:
         #Slack doesn't like blocks with null so would need to do some conditional checking
         SKUTILITIES_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutilities+is:pr+is:merged+closed:>$date")
         echo $SKUTILITIES_PRS_RESPONSE
-        if [[ $SKUTILITIES_PRS_RESPONSE == '"total_count": 0' ]]; then
+        if [[ $SKUTILITIES_PRS_RESPONSE == *'"total_count": 0'* ]]; then
           SKUTILITIES_PRS='No'
         else  
           SKUTILITIES_PRS=$(echo "$SKUTILITIES_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
