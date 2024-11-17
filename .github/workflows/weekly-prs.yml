@@ -20,11 +20,9 @@ jobs:
         AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
         date=`date +%Y-%m-%d'T'%H:%M'Z' -d "7 days ago"`
-        echo $date
+        
+        SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
+        SKUTOPIA_PRS=$(echo "$PRS" | jq -r --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        echo $SKUTOPIA_PRS
 
         
-        PRS=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
-        echo "$PRS" | jq -r --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"'
-
-        
-# $closed:>YYYY-MM-DD
