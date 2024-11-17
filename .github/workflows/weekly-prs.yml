@@ -23,16 +23,20 @@ jobs:
         date=`date +%Y-%m-%d'T'%H:%M'Z' -d "7 days ago"`
         
         SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
-        SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-        
+        # SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+
         WARETOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/waretopia+is:pr+is:merged+closed:>$date")
-        WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        # WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
 
         ECOMM_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/ecommerce-domain+is:pr+is:merged+closed:>$date")
-        ECOMM_PRS=$(echo "$ECOMM_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        # ECOMM_PRS=$(echo "$ECOMM_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        ECOMM_PRS=$(echo "$ECOMM_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         
         BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
-        BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        # BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         
         jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" --arg WARETOPIA_PRS "$WARETOPIA_PRS" --arg BILLING_PRS "$BILLING_PRS" --arg ECOMM_PRS "$ECOMM_PRS" '{text: "Skutopia software changes last week",blocks: [{type: "section",text:{type: "mrkdwn",text: "*Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: "*Fulfilment Centre*"}},{type: "section",text:{type: "mrkdwn",text: $WARETOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: "*Billing Domain*"}},{type: "section",text:{type: "mrkdwn",text: $BILLING_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: "*Ecommerce Domain*"}},{type: "section",text:{type: "mrkdwn",text: $ECOMM_PRS}},{"type": "divider"}]}' > post.json
 
