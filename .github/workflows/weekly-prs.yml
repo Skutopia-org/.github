@@ -36,9 +36,9 @@ jobs:
         
         generate_post_data()
         {
-        cat <<EOF
+          cat <<EOF
         {
-          "text":"$SKUTOPIA_PRS \n $WARETOPIA_PRS \n $ECOMM_PRS \n $BILLING_PRS"
+          "text": "$SKUTOPIA_PRS"
         }
         EOF
         }
