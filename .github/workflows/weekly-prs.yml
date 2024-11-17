@@ -23,6 +23,19 @@ jobs:
         
         SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
         SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        
+        WARETOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/waretopia+is:pr+is:merged+closed:>$date")
+        WARETOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+
+        ECOMM_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/ecommerce-domain+is:pr+is:merged+closed:>$date")
+        ECOMM_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        
+        BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
+        BILLING_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        
         echo $SKUTOPIA_PRS | jq -r
+        echo $WARETOPIA_PRS | jq -r
+        echo $ECOMM_PRS | jq -r
+        echo $BILLING_PRS | jq -r
 
         
