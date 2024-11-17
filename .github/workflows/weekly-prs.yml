@@ -34,7 +34,7 @@ jobs:
         BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
         BILLING_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         
-        jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" '{text: "Skutopia software changes last week",blocks: [{type: "section",text:{type: "mrkdwn",text: "*Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"}]}' > post.json
+        jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" --arg WARETOPIA_PRS "$WARETOPIA_PRS" '{text: "Skutopia software changes last week",blocks: [{type: "section",text:{type: "mrkdwn",text: "*Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: "*Fulfilment Centre*"}},{type: "section",text:{type: "mrkdwn",text: $WARETOPIA_PRS}},{"type": "divider"}]}' > post.json
 
         cat post.json
 
