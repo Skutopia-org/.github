@@ -34,7 +34,7 @@ jobs:
         BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
         BILLING_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         
-        jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" '{text: $SKUTOPIA_PRS}' > post.json
+        jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" '{text: \($SKUTOPIA_PRS} | jq -r)' > post.json
 
         cat post.json
 
