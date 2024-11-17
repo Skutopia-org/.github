@@ -41,8 +41,11 @@ jobs:
         #Slack doesn't like blocks with null so would need to do some conditional checking
         SKUTILITIES_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutilities+is:pr+is:merged+closed:>$date")
         echo $SKUTILITIES_PRS_RESPONSE
-        
-        SKUTILITIES_PRS=$(echo "$SKUTILITIES_PRS_RESPONSE" | jq -r '.items[]? | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        if [[ $SKUTILITIES_PRS_RESPONSE == '"total_count": 0' ]]; then
+          SKUTILITIES_PRS=''
+        else  
+          SKUTILITIES_PRS=$(echo "$SKUTILITIES_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        fi
         echo $SKUTILITIES_PRS
 
         # LOGGER_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia-logger+is:pr+is:merged+closed:>$date")
