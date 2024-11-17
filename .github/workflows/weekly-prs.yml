@@ -20,6 +20,7 @@ jobs:
         AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
         date=`date +%Y-%m-%d'T'%H:%M'Z' -d "7 days ago"`
+        echo $date
 
         
         PRS=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged")
