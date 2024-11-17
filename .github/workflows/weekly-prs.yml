@@ -14,6 +14,7 @@ jobs:
       uses: dcarbone/install-jq-action@v2
       
     - name: Get PRs
+      id: pull_requests
       run: |
         URI="https://api.github.com"
         API_HEADER="Accept: application/vnd.github.v3+json"
@@ -32,11 +33,12 @@ jobs:
         
         BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
         BILLING_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-        
-        echo $SKUTOPIA_PRS | jq -r
-        echo $WARETOPIA_PRS | jq -r
-        echo $ECOMM_PRS | jq -r
-        echo $BILLING_PRS | jq -r
+
+        echo "$SKUTOPIA_PRS" >> $GITHUB_OUTPUT
+        echo "$WARETOPIA_PRS" >> $GITHUB_OUTPUT
+        echo "$ECOMM_PRS" >> $GITHUB_OUTPUT
+        echo "$BILLING_PRS" >> $GITHUB_OUTPUT
+
 
     - name: Send message to Slack API
       uses: archive/github-actions-slack@v2.0.0
@@ -44,7 +46,7 @@ jobs:
       with:
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
         slack-channel: C081KF83BQ9
-        slack-text: Hello! Event "${{ github.event_name }}" in "${{ github.repository }}" 🤓
+        slack-text: "${{ steps.pull_requests.outputs.* }}"
     - name: Result from "Send Message"
       run: echo "The result was ${{ steps.notify.outputs.slack-result }}"
 
