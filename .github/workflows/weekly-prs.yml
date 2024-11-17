@@ -24,7 +24,7 @@ jobs:
         
         SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
         # SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-        SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq -r --arg date "$date" --arg prefix "-" '.items[] | "$prefix \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq -r --arg PREFIX "-" '.items[] | "'$PREFIX' \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
 
         WARETOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/waretopia+is:pr+is:merged+closed:>$date")
         # WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
