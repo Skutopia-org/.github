@@ -28,15 +28,15 @@ jobs:
 
         WARETOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/waretopia+is:pr+is:merged+closed:>$date")
         # WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-        WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq -r '• .items[] | "\(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
 
         ECOMM_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/ecommerce-domain+is:pr+is:merged+closed:>$date")
         # ECOMM_PRS=$(echo "$ECOMM_PRS_RESPONSE" | jq '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-        ECOMM_PRS=$(echo "$ECOMM_PRS_RESPONSE" | jq -r '• .items[] | "\(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        ECOMM_PRS=$(echo "$ECOMM_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         
         BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
         # BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-        BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq -r '• .items[] | "\(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         
         jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" --arg WARETOPIA_PRS "$WARETOPIA_PRS" --arg BILLING_PRS "$BILLING_PRS" --arg ECOMM_PRS "$ECOMM_PRS" '{blocks: [{type: "section",text:{type: "mrkdwn",text: "*Skutopia Software Changes Last Week*"}},{type: "section",text:{type: "mrkdwn",text: ":skutopia-logo_icon-gradient: *Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":package: *Fulfilment Centre*"}},{type: "section",text:{type: "mrkdwn",text: $WARETOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":moneybag: *Billing Domain*"}},{type: "section",text:{type: "mrkdwn",text: $BILLING_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: "*Ecommerce Domain* "}},{type: "section",text:{type: "mrkdwn",text: $ECOMM_PRS}},{"type": "divider"}]}' > post.json
 
