@@ -18,8 +18,12 @@ jobs:
         URI="https://api.github.com"
         API_HEADER="Accept: application/vnd.github.v3+json"
         AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+
+        date=`date +%Y-%m-%d'T'%H:%M'Z' -d "7 days ago"`
+
+        
         PRS=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged")
-        echo "$PRS" | jq -r '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"'
+        echo "$PRS" | jq -r --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.closed_at > $date) | select(.name | contains("size") | not ) | .name)]"'
 
         
 # $ json='[{"genre":"deep house"}, {"genre": "progressive house"}, {"genre": "dubstep"}]'
