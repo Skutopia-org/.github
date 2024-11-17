@@ -33,23 +33,9 @@ jobs:
         
         BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
         BILLING_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq --arg date "$date" '.items[] | "\(.title) - \(.url) [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-
-        export $SKUTOPIA_PRS=$SKUTOPIA_PRS
-
-        # echo "SKUTOPIA_PRS=$SKUTOPIA_PRS" >> $GITHUB_OUTPUT
-        # echo "WARETOPIA_PRS=$WARETOPIA_PRS" >> $GITHUB_OUTPUT
-        # echo "ECOMM_PRS=$ECOMM_PRS" >> $GITHUB_OUTPUT
-        # echo "BILLING_PRS=$BILLING_PRS" >> $GITHUB_OUTPUT
+        
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
 
 
-    - name: Send message to Slack API
-      uses: archive/github-actions-slack@v2.0.0
-      id: notify
-      with:
-        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
-        slack-channel: C081KF83BQ9
-        slack-text: "${{ steps.pull_requests.outputs.* }}"
-    - name: Result from "Send Message"
-      run: echo "The result was ${{ steps.notify.outputs.slack-result }}"
 
         
