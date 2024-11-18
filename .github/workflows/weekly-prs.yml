@@ -2,7 +2,7 @@ name: 'Weekly change log'
 
 on:
   schedule:
-    - cron: "20 04 * * MON" 
+    - cron: "25 4 * * 1" 
 
 jobs:
   getPrs:
