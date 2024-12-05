@@ -46,7 +46,7 @@ jobs:
             org: 'Skutopia-org',
           });
 
-          const repoQueries = repos.data.map(r => { 
+          const repoQueries = repos.data.map(r => async() => { 
             const result =  {
                 repo: r.full_name, 
                 query: await github.rest.search.issuesAndPullRequests({
