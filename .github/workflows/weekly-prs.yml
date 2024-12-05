@@ -13,17 +13,19 @@ jobs:
     # - name: 'Setup jq'
     #   uses: dcarbone/install-jq-action@v2
       
-    # - name: Get PRs
-    #   id: pull_requests
-    #   run: |
-    #     URI="https://api.github.com"
-    #     API_HEADER="Accept: application/vnd.github.v3+json"
-    #     AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+    - name: Get PRs
+      id: pull_requests
+      run: |
+        URI="https://api.github.com"
+        API_HEADER="Accept: application/vnd.github.v3+json"
+        AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+        SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
+        echo "$SKUTOPIA_PRS_RESPONSE" | jq -r '.items[]'
 
     #     date=`date +%Y-%m-%d'T'%H:%M'Z' -d "7 days ago"`
         
-    #     SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
-    #     SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+        # SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
+        # SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
 
     #     WARETOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/waretopia+is:pr+is:merged+closed:>$date")
     #     WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
