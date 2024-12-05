@@ -41,13 +41,14 @@ jobs:
         github-token: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
         script: |
           const date = new Date();
+          const oneWeekAgo = new Date(date.setDate(date.getDate() - 7)).toISOString()
           
           const repos = await github.rest.repos.listForOrg({
             org: 'Skutopia-org',
           });
 
-          const PRS = github.rest.search.issuesAndPullRequests({
-            q: `repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>${new Date(date.setDate(date.getDate() - 7)).toISOString()}`,
+          const PRS = await github.rest.search.issuesAndPullRequests({
+            q: `repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>${oneWeekAgo}`,
           });
           console.log(PRS)
 
