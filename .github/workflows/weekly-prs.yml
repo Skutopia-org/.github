@@ -47,7 +47,7 @@ jobs:
           });
 
           const PRS = github.rest.search.issuesAndPullRequests({
-            q: `repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>${date.setDate(date.getDate() - 7).toISOString()}`,
+            q: `repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>${new Date(date.setDate(date.getDate() - 7)).toISOString()}`,
           });
           console.log(PRS)
 
