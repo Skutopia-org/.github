@@ -35,7 +35,7 @@ jobs:
         jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" --arg WARETOPIA_PRS "$WARETOPIA_PRS" --arg BILLING_PRS "$BILLING_PRS"'{blocks: [{type: "header",text:{type: "plain_text",text: ":rockets_fire: What we have shipped in the last week! :rockets_fire:"}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":skutopia-logo_icon-gradient: *Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":package: *Fulfilment Centre*"}},{type: "section",text:{type: "mrkdwn",text: $WARETOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":moneybag: *Billing Domain*"}},{type: "section",text:{type: "mrkdwn",text: $BILLING_PRS}},{"type": "divider"}]}' > post.json
         cat post.json
 
-        curl -X POST -H 'Content-type: application/json' --data @post.json https://hooks.slack.com/services/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
+        curl -X POST -H 'Content-type: application/json' --data @post.json https://hooks.slack.com/services/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
 
 
 
