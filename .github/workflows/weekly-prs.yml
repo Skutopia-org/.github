@@ -1,8 +1,7 @@
 name: 'Weekly change log'
 
 on:
-  schedule:
-    - cron: "10 5 * * 1" 
+  push:
 
 jobs:
   getPrs:
@@ -14,29 +13,64 @@ jobs:
     - name: 'Setup jq'
       uses: dcarbone/install-jq-action@v2
       
-    - name: Get PRs
-      id: pull_requests
-      run: |
-        URI="https://api.github.com"
-        API_HEADER="Accept: application/vnd.github.v3+json"
-        AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+    # - name: Get PRs
+    #   id: pull_requests
+    #   run: |
+    #     URI="https://api.github.com"
+    #     API_HEADER="Accept: application/vnd.github.v3+json"
+    #     AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
-        date=`date +%Y-%m-%d'T'%H:%M'Z' -d "7 days ago"`
+    #     date=`date +%Y-%m-%d'T'%H:%M'Z' -d "7 days ago"`
         
-        SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
-        SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+    #     SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
+    #     SKUTOPIA_PRS=$(echo "$SKUTOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
 
-        WARETOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/waretopia+is:pr+is:merged+closed:>$date")
-        WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+    #     WARETOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/waretopia+is:pr+is:merged+closed:>$date")
+    #     WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         
-        BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
-        BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
+    #     BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
+    #     BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
         
-        jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" --arg WARETOPIA_PRS "$WARETOPIA_PRS" --arg BILLING_PRS "$BILLING_PRS"'{blocks: [{type: "header",text:{type: "plain_text",text: ":rockets_fire: What we have shipped in the last week! :rockets_fire:"}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":skutopia-logo_icon-gradient: *Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":package: *Fulfilment Centre*"}},{type: "section",text:{type: "mrkdwn",text: $WARETOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":moneybag: *Billing Domain*"}},{type: "section",text:{type: "mrkdwn",text: $BILLING_PRS}},{"type": "divider"}]}' > post.json
-        cat post.json
+    #     jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" --arg WARETOPIA_PRS "$WARETOPIA_PRS" --arg BILLING_PRS "$BILLING_PRS"'{blocks: [{type: "header",text:{type: "plain_text",text: ":rockets_fire: What we have shipped in the last week! :rockets_fire:"}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":skutopia-logo_icon-gradient: *Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":package: *Fulfilment Centre*"}},{type: "section",text:{type: "mrkdwn",text: $WARETOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":moneybag: *Billing Domain*"}},{type: "section",text:{type: "mrkdwn",text: $BILLING_PRS}},{"type": "divider"}]}' > post.json
+    #     cat post.json
 
-        curl -X POST -H 'Content-type: application/json' --data @post.json https://hooks.slack.com/services/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
+        # curl -X POST -H 'Content-type: application/json' --data @post.json https://hooks.slack.com/services/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
 
+    - uses: actions/github-script@v7
+      with:
+        script: |
+            // Get a list of all issues created by the PR opener
+            // See: https://octokit.github.io/rest.js/#pagination
 
+            const repos = github.projects.listForOrg({
+              'Skutopia-org',
+            });
+            console.log(repos)
+            # const creator = context.payload.sender.login
+            # const opts = github.rest.issues.listForRepo.endpoint.merge({
+            #   ...context.issue,
+            #   creator,
+            #   state: 'all'
+            # })
+            # const issues = await github.paginate(opts)
+
+            # for (const issue of issues) {
+            #   if (issue.number === context.issue.number) {
+            #     continue
+            #   }
+
+            #   if (issue.pull_request) {
+            #     return // Creator is already a contributor.
+            #   }
+            # }
+
+            # await github.rest.issues.createComment({
+            #   issue_number: context.issue.number,
+            #   owner: context.repo.owner,
+            #   repo: context.repo.repo,
+            #   body: `**Welcome**, new contributor!
+
+            #     Please make sure you've read our [contributing guide](CONTRIBUTING.md) and we look forward to reviewing your Pull request shortly ✨`
+            # })
 
         
