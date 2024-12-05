@@ -10,8 +10,8 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
     steps:
-    # - name: 'Setup jq'
-    #   uses: dcarbone/install-jq-action@v2
+    - name: 'Setup jq'
+      uses: dcarbone/install-jq-action@v2
       
     - name: Get PRs
       id: pull_requests
