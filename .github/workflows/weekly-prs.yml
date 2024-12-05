@@ -40,9 +40,16 @@ jobs:
       with:
         github-token: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
         script: |
+          const date = new Date();
+          const oneWeekAgo = date.setDate(oneWeekAgo.getDate() - 7);
+          
           const repos = await github.rest.repos.listForOrg({
             org: 'Skutopia-org',
           });
           console.log(repos)
+
+          const PRS = octokit.rest.search.issuesAndPullRequests({
+            q: `repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$oneWeekAgo`,
+          });
 
         
