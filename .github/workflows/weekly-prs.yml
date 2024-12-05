@@ -45,10 +45,10 @@ jobs:
           const repos = await github.rest.repos.listForOrg({
             org: 'Skutopia-org',
           });
-          console.log(repos)
 
-          const PRS = octokit.rest.search.issuesAndPullRequests({
+          const PRS = github.rest.search.issuesAndPullRequests({
             q: `repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date.setDate(oneWeekAgo.getDate() - 7)`,
           });
+          console.log(PRS)
 
         
