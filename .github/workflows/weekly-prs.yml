@@ -41,7 +41,7 @@ jobs:
         github-token: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
         script: |
           const repos = github.rest.projects.listForOrg({
-            'Skutopia-org',
+            org: 'Skutopia-org',
           });
           console.log(repos)
 
