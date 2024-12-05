@@ -50,5 +50,5 @@ jobs:
           const PRS = await github.rest.search.issuesAndPullRequests({
             q: `repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>${oneWeekAgo}`,
           });
-          PRS.data.items.map(i => console.log(`${i.title} - ${i.labels.map(l => l.items.toString())}`))
+          PRS.data.items.map(i => console.log(`${i.title} - ${i.labels.map(l => l.items.name)}`))
         
