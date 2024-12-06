@@ -63,9 +63,7 @@ jobs:
               }
               return [titleBlock,prBlock,divideBlock]
           })
-          
-          # console.log(JSON.stringify(slackBlocks.flatMap(b => b)))
-          
+                    
           axios.post('https://hooks.slack.com/services/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',{
               blocks: slackBlocks.flatMap(b => b)
           },{headers: {
