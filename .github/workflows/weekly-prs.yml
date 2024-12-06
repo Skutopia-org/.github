@@ -35,7 +35,7 @@ jobs:
               })
             const prs = {
               repo: r.full_name.split("/").pop(),
-              prs: result.data.items.map(i => `• ${i.title} - ${i.labels.map(l => l.name).filter((n) => !n.includes('size'))}`)
+              prs: result.data.items.map(i => `• ${i.title} - [${i.labels.map(l => l.name).filter((n) => !n.includes('size'))}]`)
             }
           
             return prs
@@ -64,8 +64,10 @@ jobs:
               return [titleBlock,prBlock,divideBlock]
           })
                     
+          const headerBlock = [{type: "header",text:{type: "plain_text",text: ":rockets_fire: What we have shipped in the last week! :rockets_fire:"}},{"type": "divider"}]
+
           axios.post('https://hooks.slack.com/services/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',{
-              blocks: slackBlocks.flatMap(b => b)
+              blocks: headerBlock.concat(slackBlocks.flatMap(b => b))
           },{headers: {
               "Content-Type": 'application/json'
           }})
