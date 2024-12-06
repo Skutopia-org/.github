@@ -10,52 +10,67 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
     steps:
-    - name: 'Setup jq'
-      uses: dcarbone/install-jq-action@v2
-      
-    - name: Get PRs
-      id: pull_requests
-      run: |
-        URI="https://api.github.com"
-        API_HEADER="Accept: application/vnd.github.v3+json"
-        AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
-        date=`date +%Y-%m-%d'T'%H:%M'Z' -d "7 days ago"`
-        SKUTOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>$date")
-        echo "$SKUTOPIA_PRS_RESPONSE" | jq -r '.items[]'
-        
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
 
-    #     WARETOPIA_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/waretopia+is:pr+is:merged+closed:>$date")
-    #     WARETOPIA_PRS=$(echo "$WARETOPIA_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-        
-    #     BILLING_PRS_RESPONSE=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/search/issues?q=repo:Skutopia-org/billing-domain+is:pr+is:merged+closed:>$date")
-    #     BILLING_PRS=$(echo "$BILLING_PRS_RESPONSE" | jq -r '.items[] | "• \(.title) - [\(.labels[] | select(.name | contains("size") | not ) | .name)]"')
-        
-    #     jq -r -n --arg SKUTOPIA_PRS "$SKUTOPIA_PRS" --arg WARETOPIA_PRS "$WARETOPIA_PRS" --arg BILLING_PRS "$BILLING_PRS"'{blocks: [{type: "header",text:{type: "plain_text",text: ":rockets_fire: What we have shipped in the last week! :rockets_fire:"}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":skutopia-logo_icon-gradient: *Shipping Platform*"}},{type: "section",text:{type: "mrkdwn",text: $SKUTOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":package: *Fulfilment Centre*"}},{type: "section",text:{type: "mrkdwn",text: $WARETOPIA_PRS}},{"type": "divider"},{type: "section",text:{type: "mrkdwn",text: ":moneybag: *Billing Domain*"}},{type: "section",text:{type: "mrkdwn",text: $BILLING_PRS}},{"type": "divider"}]}' > post.json
-    #     cat post.json
-
-        # curl -X POST -H 'Content-type: application/json' --data @post.json https://hooks.slack.com/services/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
-
+    - run: npm install axios
+    
     - uses: actions/github-script@v7
       with:
         github-token: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
         script: |
+          import axios from "axios";
+
           const date = new Date();
           const oneWeekAgo = new Date(date.setDate(date.getDate() - 7)).toISOString()
           
           const repos = await github.rest.repos.listForOrg({
             org: 'Skutopia-org',
           });
-
-          const repoQueries = repos.data.map(r => async() => { 
-            const result =  {
-                repo: r.full_name, 
-                query: await github.rest.search.issuesAndPullRequests({
-                  q: `repo:Skutopia-org/skutopia+is:pr+is:merged+closed:>${oneWeekAgo}`,
-                })
-            };
-            return result
+          
+          const pullRequests = await Promise.all(repos.data.map(async (r)  => { 
+            const result = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${r.full_name}+is:pr+is:merged+closed:>${oneWeekAgo}`,
+              })
+            const prs = {
+              repo: r.full_name.split("/").pop(),
+              prs: result.data.items.map(i => `• ${i.title} - ${i.labels.map(l => l.name).filter((n) => !n.includes('size'))}`)
+            }
+          
+            return prs
+          }));
+          
+          const filteredPullRequests = pullRequests.filter(pr => pr.prs.length !== 0 );
+          
+          const slackBlocks = filteredPullRequests.map(i => {
+              const titleBlock = {
+                  type: "section",
+                  text:{
+                      type: "mrkdwn",
+                      text: ` *${i.repo}*`}
+                  };
+              const prBlock =  {
+                  type: 
+                  "section",
+                  text:{
+                      type: "mrkdwn",
+                      text: i.prs.join('\n')
+                  }
+              }
+              const divideBlock =  {
+                  "type": "divider"
+              }
+              return [titleBlock,prBlock,divideBlock]
           })
-          console.log(repoQueries)
+          
+          # console.log(JSON.stringify(slackBlocks.flatMap(b => b)))
+          
+          axios.post('https://hooks.slack.com/services/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',{
+              blocks: slackBlocks.flatMap(b => b)
+          },{headers: {
+              "Content-Type": 'application/json'
+          }})
 
 
         
