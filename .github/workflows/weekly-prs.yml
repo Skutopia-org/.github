@@ -5,7 +5,7 @@ on:
 
 jobs:
   getPrs:
-    name: Get PRs
+    name: Get PRs and send notification
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
@@ -39,12 +39,12 @@ jobs:
               {repo: "skutilities", emoji: ":utility:", friendlyName: "Skutilities"}
           ]
           
-          const repos = await octokit.rest.repos.listForOrg({
+          const repos = await github.rest.repos.listForOrg({
             org: 'Skutopia-org',
           });
           
           const pullRequests = await Promise.all(repos.data.map(async (r, i)  => { 
-            const result = await octokit.rest.search.issuesAndPullRequests({
+            const result = await github.rest.search.issuesAndPullRequests({
               q: `repo:${r.full_name}+is:pr+is:merged+closed:>${oneWeekAgo}`,
               })
               
