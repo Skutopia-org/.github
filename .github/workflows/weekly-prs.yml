@@ -20,7 +20,7 @@ jobs:
       with:
         github-token: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
         script: |
-          import axios from "axios";
+          const axios = require("axios");
 
           const date = new Date();
           const oneWeekAgo = new Date(date.setDate(date.getDate() - 7)).toISOString()
