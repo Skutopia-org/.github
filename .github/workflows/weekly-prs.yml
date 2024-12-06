@@ -19,23 +19,36 @@ jobs:
     - uses: actions/github-script@v7
       with:
         github-token: ${{ secrets.SEARCH_GH_ACCESS_TOKEN_ALL }}
-        script: |
-          const axios = require("axios");
-
+        script: |           
           const date = new Date();
           const oneWeekAgo = new Date(date.setDate(date.getDate() - 7)).toISOString()
+          
+          const emojis = [
+              {repo: "waretopia",emoji: ":package:"},
+              {repo: "skutopia",emoji: ":skutopia-logo_icon-gradient:"},
+              {repo: "notification-service", emoji: ":incoming_envelope:"},
+              {repo: "datatopia", emoji: ":datastudio:"},
+              {repo: "shared-infrastructure", emoji: ":building_construction:"},
+              {repo: "billing-domain", emoji: ":moneybag:"},
+              {repo: "architecture-decision-records", emoji: ":spiral_note_pad:"},
+              {repo: "ecommerce-domain", emoji: ":ecommerce:"},
+              {repo: "dataform", emoji: ":datastudio:"},
+              {repo: "carrier-domain", emoji: ":truck:"},
+              {repo: "skutilities", emoji: ":utility:"}
+          ]
           
           const repos = await github.rest.repos.listForOrg({
             org: 'Skutopia-org',
           });
           
-          const pullRequests = await Promise.all(repos.data.map(async (r)  => { 
+          const pullRequests = await Promise.all(repos.data.map(async (r, i)  => { 
             const result = await github.rest.search.issuesAndPullRequests({
               q: `repo:${r.full_name}+is:pr+is:merged+closed:>${oneWeekAgo}`,
               })
+            const friendlyRepoName = r.full_name.split("/").pop()
             const prs = {
-              repo: r.full_name.split("/").pop(),
-              prs: result.data.items.map(i => `• ${i.title} - [${i.labels.map(l => l.name).filter((n) => !n.includes('size'))}]`)
+              repo: `${emojis.find(e => e?.repo === friendlyRepoName)?.emoji || ''} ${friendlyRepoName}`,
+              prs: result.data.items.map(i => `• ${i.title} - ${i.labels.map(l => l.name).filter((n) => !n.includes('size'))}`)
             }
           
             return prs
@@ -63,14 +76,13 @@ jobs:
               }
               return [titleBlock,prBlock,divideBlock]
           })
-                    
+          
           const headerBlock = [{type: "header",text:{type: "plain_text",text: ":rockets_fire: What we have shipped in the last week! :rockets_fire:"}},{"type": "divider"}]
-
+          
           axios.post('https://hooks.slack.com/services/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',{
               blocks: headerBlock.concat(slackBlocks.flatMap(b => b))
           },{headers: {
               "Content-Type": 'application/json'
           }})
-
 
         
