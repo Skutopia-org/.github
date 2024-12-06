@@ -25,31 +25,33 @@ jobs:
           const date = new Date();
           const oneWeekAgo = new Date(date.setDate(date.getDate() - 7)).toISOString()
           
-          const emojis = [
-              {repo: "waretopia",emoji: ":package:"},
-              {repo: "skutopia",emoji: ":skutopia-logo_icon-gradient:"},
-              {repo: "notification-service", emoji: ":incoming_envelope:"},
-              {repo: "datatopia", emoji: ":datastudio:"},
-              {repo: "shared-infrastructure", emoji: ":building_construction:"},
-              {repo: "billing-domain", emoji: ":moneybag:"},
-              {repo: "architecture-decision-records", emoji: ":spiral_note_pad:"},
-              {repo: "ecommerce-domain", emoji: ":ecommerce:"},
-              {repo: "dataform", emoji: ":datastudio:"},
-              {repo: "carrier-domain", emoji: ":truck:"},
-              {repo: "skutilities", emoji: ":utility:"}
+          const repoMap = [
+              {repo: "waretopia",emoji: ":package:", friendlyName: "Fulfilment Centre"},
+              {repo: "skutopia",emoji: ":skutopia-logo_icon-gradient:", friendlyName: "Shipping Platform"},
+              {repo: "notification-service", emoji: ":incoming_envelope:", friendlyName: "Notification Domain"},
+              {repo: "datatopia", emoji: ":datastudio:", friendlyName: "Datatopia"},
+              {repo: "shared-infrastructure", emoji: ":building_construction:", friendlyName: "Shared Infrastructure"},
+              {repo: "billing-domain", emoji: ":moneybag:", friendlyName: "Billing Domain"},
+              {repo: "architecture-decision-records", emoji: ":spiral_note_pad:", friendlyName: "Architecture Decision Records"},
+              {repo: "ecommerce-domain", emoji: ":ecommerce:", friendlyName: "E-Commerce Domain"},
+              {repo: "dataform", emoji: ":datastudio:", friendlyName: "Dataform"},
+              {repo: "carrier-domain", emoji: ":truck:", friendlyName: "Carrier Domain"},
+              {repo: "skutilities", emoji: ":utility:", friendlyName: "Skutilities"}
           ]
           
-          const repos = await github.rest.repos.listForOrg({
+          const repos = await octokit.rest.repos.listForOrg({
             org: 'Skutopia-org',
           });
           
           const pullRequests = await Promise.all(repos.data.map(async (r, i)  => { 
-            const result = await github.rest.search.issuesAndPullRequests({
+            const result = await octokit.rest.search.issuesAndPullRequests({
               q: `repo:${r.full_name}+is:pr+is:merged+closed:>${oneWeekAgo}`,
               })
-            const friendlyRepoName = r.full_name.split("/").pop()
+              
+            const shortRepoName = r.full_name.split("/").pop()
+            
             const prs = {
-              repo: `${emojis.find(e => e?.repo === friendlyRepoName)?.emoji || ''} ${friendlyRepoName}`,
+              repo: `${repoMap.find(i => i?.repo === shortRepoName)?.emoji || ''}  ${repoMap.find(i => i?.repo === shortRepoName)?.friendlyName || shortRepoName}`,
               prs: result.data.items.map(i => `• ${i.title} - ${i.labels.map(l => l.name).filter((n) => !n.includes('size'))}`)
             }
           
@@ -86,5 +88,6 @@ jobs:
           },{headers: {
               "Content-Type": 'application/json'
           }})
+
 
         
