@@ -1,7 +1,8 @@
 name: 'Weekly change log'
 
 on:
-  push:
+  schedule:
+    - cron: "10 5 * * 1" 
 
 jobs:
   getPrs:
