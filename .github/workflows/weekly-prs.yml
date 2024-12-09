@@ -2,7 +2,7 @@ name: 'Weekly change log'
 
 on:
   schedule:
-    - cron: "20 5 * * 1" 
+    - cron: "0 5 * * 1" 
 
 jobs:
   getPrs:
@@ -40,7 +40,8 @@ jobs:
               {repo: "skutilities", emoji: ":utility:", friendlyName: "Skutilities"},
               {repo: "zod-http-schemas", emoji: ":zod:", friendlyName: "Zod HTTP Schemas"},
               {repo: "analytics", emoji: ":analytics:", friendlyName: "Analytics"},
-              {repo: ".github", emoji: ":github:", friendlyName: "GitHub Shared"}
+              {repo: ".github", emoji: ":github:", friendlyName: "GitHub Shared"},
+              {repo: "skutopia-logger", emoji: ":pencil:", friendlyName: "Skutopia Logger"}
           ]
           
           const repos = await github.rest.repos.listForOrg({
