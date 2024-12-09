@@ -2,7 +2,7 @@ name: 'Weekly change log'
 
 on:
   schedule:
-    - cron: "10 5 * * 1" 
+    - cron: "20 5 * * 1" 
 
 jobs:
   getPrs:
@@ -87,7 +87,7 @@ jobs:
           
           const headerBlock = [{type: "header",text:{type: "plain_text",text: ":rockets_fire: What we have shipped in the last week! :rockets_fire:"}},{"type": "divider"}]
           
-          axios.post('https://hooks.slack.com/services/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',{
+          axios.post('https://hooks.slack.com/services/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',{
               blocks: headerBlock.concat(slackBlocks.flatMap(b => b))
           },{headers: {
               "Content-Type": 'application/json'
