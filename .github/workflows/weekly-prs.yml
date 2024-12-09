@@ -53,7 +53,7 @@ jobs:
             
             const prs = {
               repo: `${repoMap.find(i => i?.repo === shortRepoName)?.emoji || ''}  ${repoMap.find(i => i?.repo === shortRepoName)?.friendlyName || shortRepoName}`,
-              prs: result.data.items.map(i => `• ${i.title}${i.labels.map(l => ` - [${l.name}]`).filter((n) => !n.includes('size'))}`)
+              prs: result.data.items.map(i => `• ${i.title}${i.labels.map(l => ` [${l.name}]`).filter((n) => !n.includes('size'))}`)
             }
           
             return prs
