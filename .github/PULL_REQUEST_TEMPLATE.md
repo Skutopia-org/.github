@@ -1,10 +1,14 @@
 ## Motivation
 
+> [!TIP]
+>
 > - What problem does this PR solve?
 > - What are the specific issues or pain points this addresses?
 
 ## Solution
 
+> [!TIP]
+>
 > - How does this PR address the problem?
 > - Were any alternative solutions considered?
 > - What are the considerations to ensure this is not a breaking change?
@@ -12,6 +16,8 @@
 
 ## Outcomes
 
+> [!TIP]
+>
 > - What are the expected outcomes of this change?
 > - Are there any measurable improvements (e.g., performance, user experience)?
 > - Are there any dependencies or prerequisites for merging this PR?
