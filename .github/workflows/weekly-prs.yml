@@ -37,7 +37,10 @@ jobs:
               {repo: "ecommerce-domain", emoji: ":ecommerce:", friendlyName: "E-Commerce Domain"},
               {repo: "dataform", emoji: ":datastudio:", friendlyName: "Dataform"},
               {repo: "carrier-domain", emoji: ":truck:", friendlyName: "Carrier Domain"},
-              {repo: "skutilities", emoji: ":utility:", friendlyName: "Skutilities"}
+              {repo: "skutilities", emoji: ":utility:", friendlyName: "Skutilities"},
+              {repo: "zod-http-schemas", emoji: ":zod:", friendlyName: "Zod HTTP Schemas"},
+              {repo: "analytics", emoji: ":analytics:", friendlyName: "Analytics"},
+              {repo: ".github", emoji: ":github:", friendlyName: "GitHub Shared"}
           ]
           
           const repos = await github.rest.repos.listForOrg({
