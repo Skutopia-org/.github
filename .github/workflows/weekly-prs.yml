@@ -41,7 +41,9 @@ jobs:
               {repo: "zod-http-schemas", emoji: ":zod:", friendlyName: "Zod HTTP Schemas"},
               {repo: "analytics", emoji: ":analytics:", friendlyName: "Analytics"},
               {repo: ".github", emoji: ":github:", friendlyName: "GitHub Shared"},
-              {repo: "skutopia-logger", emoji: ":pencil:", friendlyName: "Skutopia Logger"}
+              {repo: "skutopia-logger", emoji: ":pencil:", friendlyName: "Skutopia Logger"},
+              {repo: "pulumi-deployment-runner", emoji: ":pulumi-intensifies:", friendlyName: "Pulumi Deployment Runner"},
+              {repo: "docker-swarm-cluster", emoji: ":docker:", friendlyName: "Docker Swarm"}
           ]
           
           const repos = await github.rest.repos.listForOrg({
