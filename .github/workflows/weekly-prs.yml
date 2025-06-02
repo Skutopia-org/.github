@@ -1,8 +1,9 @@
 name: 'Weekly change log'
 
-on:
-  schedule:
-    - cron: "0 5 * * 1" 
+# Turning changelog off
+# on:
+#   schedule:
+#     - cron: "0 5 * * 1" 
 
 jobs:
   getPrs:
