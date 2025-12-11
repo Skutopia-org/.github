@@ -1,0 +1,80 @@
+Skutopia is committed to building software that is secure and can be trusted. 
+
+This document describes the Skutopia's security policy and how to report vulnerabilities.
+
+---
+
+## Reporting Potential Security Vulnerabilities
+
+To report potential security vulnerabilities please follow these steps.
+
+E-Mail: [security@skutopia.com](mailto:security@skutopia.com) 
+
+If the email contains information of a sensitive nature or includes steps around how to exploit a vulnerability, please encrypt your email with [PGP encryption](https://en.wikipedia.org/wiki/Pretty_Good_Privacy). You can use the public key at the end of this document. 
+
+Useful information to include
+
+* Package and version that contains the vulnerability  
+* Type of vulnerability (e.g. code execution)  
+* Instructions on how to reproduce  
+* Potential impact of the vulnerability  
+* Whether or not you want recognition when this vulnerability is closed
+
+Currently Skutopia does not have a bug bounty program. We will offer acknowledgement when a vulnerability that you have raised has been closed, if you are comfortable with this.
+
+## PGP Public Key
+```
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQINBGk6BC8BEAC50D69DioiCU7qWTb8Q2+iWCJBdGb/VcE0e5prlHzumwGaGB1v
+CdA8ZmayB+Y+HJ7oJ/epagVV91zRmQRvoNhQxPXlqe3eVEQ3gYKiU46PyYhH9kzH
+OadFxTbHPMjIeSxEMj5p0fLkn6GZQkhs3ekcww76bhG05EEGDUtrTYVILM/oZTQJ
+YAlGEzQ2hE6Vk415sA/bFBIbqBIiVUYWbEeSgefPgaGLH+qmFpCEQIbI3bo2z0qd
+3l7mmtNmSylq1q7xm2RLBgyunLIPs+SIvWXnY+BARdGr6eYOtTPd1EFXbC99rzZT
+wZyxBnRkGiyLLVwF3lbNDD/q5vHzIy9VjPkj+RUi2DLSfaZ6AaFpwQHgWpwWic8T
+IheVMqxsb0Zb8wSOf189n4dBvy6b04EauuCS8QArL3k6gSHzg08IcGbNEdXBnPQ2
+xeQj2wiQH5eNTZEL6BS4H0bKh0CmheW1iF2u57Er55ngY4cEMSP9cF4+nu9LnzMs
+t2q0fd0H+vp80qaagVpSgWE/UyzZ840YvHdXpZWTo0WUMDm4DP8Re3Th0ZGk0YJ1
+Hf9/loXa1Bf8EhSSpZqtmwAn8qulaMjfjIKKUtOpX68bvNyvJ3vDSJ4C7Lu1xaCc
+qOIiTxyOXZGArnQ1IwAJoC9t+yEPYi+WigW+d8c8Ko64PR6PJY9qPJPOyQARAQAB
+tG5za3V0b3BpYSAoRW5jcnlwdGlvbiBrZXkgZm9yIHJlcG9ydGluZyBzZWN1cml0
+eSB2dWxuZXJhYmlsaXRpZXMgZm9yIHNrdXRvcGlhIHNvZnR3YXJlKSA8c2VjdXJp
+dHlAc2t1dG9waWEuY29tPokCUQQTAQgAOxYhBGtxm5bk2JllWicQ+GZpyBWfqYaB
+BQJpOgQvAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJEGZpyBWfqYaB
+SWoP/3mPfRe0H3HYjoSs1URXr95pwhHGLpcDN3zxK700yH6wERgxEUrXUmz92cMi
+C7VCNwNVnG32sq8nGQp82vLfzrYuGcnP4F51DiK38psE59qGmt1zqtGFK8uKmoJF
+eHMaH6qutjCZiVfQaM2hXJ4RQi8FiXMMiFVtiVnsqgDlkA8CcYC2bwjgPZ28nLhx
+eJ7F6OlFnaV7rGq3zcSrNjFmlF4fLApF3PcbinxLI6sGeMge2Uv1yepQ3jRTegKJ
+2ueZUiqDGgdv9YD3pHHSz6xy3RRCqJMd64HylGtcZalagS/7OeTwCJZHjCZN0AVO
+faO4IwHSB9vz0g1lAloUA63syIZRLQbngQ3OORtLm6b3cSbXCUr6WZiSvmSMUj3G
+Dw5FQ+Ho0N7Ii3L+baeM+09KpdCfi27VXmHJxmUda4Z20yGDYV8jyIAzX14q+HSV
+jLgowG7a7LKsVRwgFCkpb9bNVJwd4RnbRATn+nhi2jKZ3XqdTEWtFlPBroJNA9bh
+TthYV/n5tbnmTxTtgMxwHj2OoVCzI3zE13UmPLeUBsvBTYbZZ/12y4EgRugngz9Y
+wkK8i6/L2ap98XGA/hE6h4Z+XdJv6CrL3Ax0C2ySoXFdrHQaSbW07D4gJMqMF0fD
+0+B91dcsNqY/ZSkNGbVAIC6h93MUV1n6u0j9i+UGu4h3QQiAuQINBGk6BC8BEAC/
+d8rRm0t168emUlZEOwOH0di/xXBrHKMkvd5uGtlSUdX/CFabJRn7MW1crscsh/OK
+Eg+S1P9gNXuQQdZfoF5yecGihHGLI7pJh8u0u5ZV8/NZvRBMETWNhqjuoWn1PjY6
+ywZP9NB1hAybzhynCT8x4Y9v2/FLNnugq4A18UGVAVkWIi+nKNWiXW1UZi4t6PR6
+F7Vk4Nzlh6V8yWG++wGctXVZMGK1xKIOmTRawGVfh11it65LqWdIt6/3EpKWlIeM
+OlzolO7HqSr9Xt7zaGK3Z3asQQoQ6v+QaTTZsWzfXpSK7sCR8pkHPLINnIaSBpbb
+TQaLUA73c4RhRnZS4UJnXoBY8khH6OGtL2gkIgjBZ83/8XZ03IzTkMbSXV15TXml
+dJzCgjHOPqFtEOr335W3pLcOuroVu11EaUBBCWtUBlimD+ebQq6sHukuQ6qVcMeh
+1whHj8hoGovlSvsk6y1CxbK02NoB2ILD5KdA4+VBcUCqIGICmBGddtYgeQZZ5+sK
+OHh5vVu9M41DvhtK1Pk4VaiiVgFiqjiOImodkWEXMMeXmsno2j17BxjQ+5faL1pL
+edL/fL/C0u8pif7uHMnkxAsUy9zq8aQhlpQIEB4oyu3dPvwTHnO1RjIWO1pY5XEi
+0SXdXxIV1ZWIKBJ296UbXe88h2RFaZPDKQF6a2qeYQARAQABiQI2BBgBCAAgFiEE
+a3GbluTYmWVaJxD4ZmnIFZ+phoEFAmk6BC8CGwwACgkQZmnIFZ+phoG9/g/9E1y1
+SCfWKhdi2VQFYgHQdkdv+9E6T2b6yn9rbKduw89v9WiVOiHVvLc/xTdcyyi5oXhb
+nbb8RgzspxHNPX4/KlaQ74fV+AhIt3JyRR2MX8RkrkzLpMAEwwtrQzTLwsSKqKV8
+JgUDYREcSoTKpxnswnDmhL7Y3yG7cPmLwGjh6PlJa0N0ASnlDeqcZUSHIRizoLPw
+I+Ip9o+xEpG546qjwILiymJW52n3vE3OuoWuYXPD12UgThAa0FVU+iiogKLS9qET
+hEUXTXF40V1nCKDpBQdkNdvPTEvKqiMsmGV7AYPMTPwZCVDZNAr66OOX0P/rAnXM
+xcF8Th9CED5VpKFt9DJAvYK5rKojphH17cBBiLfKoY9TDBZrqFzDqfySbJb4vGSN
+ii+/MkGtj/cgFJl7i6Pumv1MZ1ClUqAD4cLmt+gEBWL434+6s7pUyyDy8oFzFrz+
+c4L1Gx6B8YUSYAEEQjbu7934LDF8Lroi3f3pMa6EK1qhnkj51LeIDE5Ch/O/z2GU
+/A8ZiLUKs2CcmpTRA7rxzwis+6/iW8z8153p6QHUb8aBJ6wniIG3Gp1n8eN7RspR
+LmcRAB24Q7sK5slsZkaz5+dxPKeaASGNBy3NSAWMD/I8rCJWCRwqBV6e6uGegKpj
+X6BssuD1YX5tfn07wf4yxl/JTQ1IGCaCynjyJPc=
+=nzaM
+-----END PGP PUBLIC KEY BLOCK-----
+```
