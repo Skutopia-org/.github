@@ -1,6 +1,6 @@
 Skutopia is committed to building software that is secure and can be trusted. 
 
-This document describes the project's security policy, how to report vulnerabilities, and what steps are taken to address them.
+This document describes the Skutopia's security policy and how to report vulnerabilities.
 
 ---
 
