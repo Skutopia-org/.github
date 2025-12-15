@@ -6,7 +6,7 @@ You should attempt to match the guidelines in your code. You should review code 
 
 ## Lint on save
 
-There is eslint configuration within the repo. We recommend you set your editor to format on save, to ensure the lint configuration is applied before a pull request is opened.
+There is an eslint configuration within the repo. We recommend you set your editor to format on save, to ensure the lint configuration is applied before a pull request is opened.
 
 ## Functions, not classes
 
