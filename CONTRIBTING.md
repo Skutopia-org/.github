@@ -119,7 +119,7 @@ The code above is just a contrived example.
 
 When defining type and schema. Naming convention is
 
-* Schema should be camel case with Schema suffix. e.g `countryCodeSchema`  
+* Schema should be camel case. e.g `countryCode`  
 * Type should be pascal case. e.g `CountryCode`
 
 # Additional resources
