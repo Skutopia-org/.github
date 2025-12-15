@@ -12,9 +12,9 @@ There is eslint configuration within the repo. We recommend you set your editor 
 
 By default, the code we write uses the functional programming paradigm. On occasion classes will be used, but we mostly avoid them at all cost.
 
-If you want to know more about this, you can read @Antman261's blog post here: [https://antman-does-software.com/functional-typescript-in-production-systems](https://antman-does-software.com/functional-typescript-in-production-systems).
+If you want to know more about this, you can read [@Antman261](https://github.com/Antman261)'s blog post here: [https://antman-does-software.com/functional-typescript-in-production-systems](https://antman-does-software.com/functional-typescript-in-production-systems).
 
-It’s also worth reading @Antman261's blog post on when to use map, forEach, and reduce: [https://antman-does-software.com/are-you-using-map-foreach-and-reduce-wrong](https://antman-does-software.com/are-you-using-map-foreach-and-reduce-wrong).
+It’s also worth reading [@Antman261](https://github.com/Antman261)'s blog post on when to use map, forEach, and reduce: [https://antman-does-software.com/are-you-using-map-foreach-and-reduce-wrong](https://antman-does-software.com/are-you-using-map-foreach-and-reduce-wrong).
 
 When declaring multiple functions in a file, we prefer to order the main function at the top and helper functions below, that way you can read from the highest level of abstraction down.
 
@@ -55,13 +55,13 @@ In general, we try to keep functions small. A few lines, opposed to many tens or
 
 ## Avoid try/catch
 
-We aim to avoid using try/catch statements. @Antman261'shas a blog post on this here: [https://antman-does-software.com/stop-catching-errors-in-typescript-use-the-either-type-to-make-your-code-predictable](https://antman-does-software.com/stop-catching-errors-in-typescript-use-the-either-type-to-make-your-code-predictable).
+We aim to avoid using try/catch statements. [@Antman261](https://github.com/Antman261)'s has a blog post on this here: [https://antman-does-software.com/stop-catching-errors-in-typescript-use-the-either-type-to-make-your-code-predictable](https://antman-does-software.com/stop-catching-errors-in-typescript-use-the-either-type-to-make-your-code-predictable).
 
 But note that we use neverthrow for error handling. You can read more about that here: [https://github.com/supermacro/neverthrow](https://github.com/supermacro/neverthrow)
 
 ## Tests
 
-Write them. Practice TDD. @Antman261's has a blog post on tests too, that’s worth reading: [https://antman-does-software.com/applying-googles-testing-methodology-to-functional-domain-driven-design-for-scalable-testing](https://antman-does-software.com/applying-googles-testing-methodology-to-functional-domain-driven-design-for-scalable-testing). Tests should ideally always use fixed values.
+Write them. Practice TDD. [@Antman261](https://github.com/Antman261)'s has a blog post on tests too, that’s worth reading: [https://antman-does-software.com/applying-googles-testing-methodology-to-functional-domain-driven-design-for-scalable-testing](https://antman-does-software.com/applying-googles-testing-methodology-to-functional-domain-driven-design-for-scalable-testing). Tests should ideally always use fixed values.
 
 ## Small PRs
 
@@ -124,5 +124,5 @@ When defining type and schema. Naming convention is
 
 # Additional resources
 
-@Antman261's blog has a bunch of useful thoughts and insights that often influence how we do things, and is in general just worth a read: [https://antman-does-software.com/](https://antman-does-software.com/)  
+[@Antman261](https://github.com/Antman261)'s blog has a bunch of useful thoughts and insights that often influence how we do things, and is in general just worth a read: [https://antman-does-software.com/](https://antman-does-software.com/)  
    
